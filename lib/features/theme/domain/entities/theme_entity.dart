@@ -1,7 +1,7 @@
-enum ThemeDarkMode { light, dark, system }
+enum AppThemeMode { light, dark, system }
 
 class ThemeEntity {
-  final ThemeDarkMode themeDarkMode;
+  final AppThemeMode themeDarkMode;
 
   const ThemeEntity({required this.themeDarkMode});
 }

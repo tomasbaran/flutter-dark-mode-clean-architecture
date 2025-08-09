@@ -1,10 +1,9 @@
-sealed class Result {
-  const Result();
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  factory Result.success() => Success();
-  factory Result.error() => Error();
+part 'result.freezed.dart';
+
+@freezed
+sealed class Result<T> with _$Result<T> {
+  const factory Result.success(T value) = Success<T>;
+  const factory Result.error(String message) = Error<T>;
 }
-
-class Success extends Result {}
-
-class Error extends Result {}
