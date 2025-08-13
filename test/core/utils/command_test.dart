@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:persistent_storage_key_value/core/utils/command.dart';
+import 'package:persistent_storage_key_value/core/utils/result.dart';
 
 void main() {
+  Future<Result<int>> fakeFunction() async => Result.success(1);
+
   group('Command', () {
     test('happy path minimal', () async {
-      final Command<int> sut = Command(execute: () async => 1);
+      final sut = Command(execute: fakeFunction);
 
       expect(sut.state, CommandState<int>.idle());
       final future = sut.execute();
@@ -22,6 +25,7 @@ void main() {
         execute: () async {
           await completer.future; // Keep the execution alive
           executed++;
+          return Result.success(null);
         },
       );
 
