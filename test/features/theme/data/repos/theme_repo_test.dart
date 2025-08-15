@@ -6,22 +6,22 @@ import 'package:persistent_storage_key_value/features/theme/domain/entities/them
 
 void main() {
   group('ThemeRepoFakeImpl', () {
-    late ThemeRepoFakeImpl themeRepo;
+    late ThemeRepoFakeImpl sut;
 
     setUp(() {
-      themeRepo = ThemeRepoFakeImpl();
+      sut = ThemeRepoFakeImpl();
     });
 
     test('should return the default theme mode by default', () async {
-      final result = await themeRepo.getThemeMode();
+      final result = await sut.getThemeMode();
       final expectedResult = Result.success(AppConfig.defaultThemeMode);
       expect(result, expectedResult);
     });
 
     test('should return correct mode after setting it', () async {
       for (final mode in AppThemeMode.values) {
-        await themeRepo.setThemeMode(mode);
-        final result = await themeRepo.getThemeMode();
+        await sut.setThemeMode(mode);
+        final result = await sut.getThemeMode();
         final expectedResult = Result.success(mode);
         expect(result, expectedResult);
       }
