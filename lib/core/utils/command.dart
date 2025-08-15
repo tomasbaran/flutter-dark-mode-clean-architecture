@@ -17,7 +17,7 @@ class Command<T> {
   Command({required Future<Result<T>> Function() execute}) : _execute = execute;
 
   final _state = ValueNotifier<CommandState<T>>(CommandState.idle());
-  get state => _state.value;
+  CommandState<T> get state => _state.value;
 
   execute() async {
     if (state is Executing<T>) return;
