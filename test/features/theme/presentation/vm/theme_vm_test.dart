@@ -15,10 +15,10 @@ void main() {
     setUp(() {
       mockThemeRepo = MockThemeRepo();
       sut = ThemeVM(themeRepo: mockThemeRepo);
-      provideDummy(Result.success(AppConfig.defaultThemeMode));
     });
     test('should return the default theme mode by default', () async {
       // Arrange
+      provideDummy(Result.success(AppConfig.defaultThemeMode));
       when(
         mockThemeRepo.getThemeMode(),
       ).thenAnswer((_) async => Result.success(AppConfig.defaultThemeMode));
@@ -36,20 +36,23 @@ void main() {
     test('should return the correct theme mode after setting it', () async {
       for (final mode in AppThemeMode.values) {
         // Arrange
+        provideDummy<Result<void>>(Result.success(null));
+        provideDummy<Result<AppThemeMode>>(Result.success(mode));
         when(
           mockThemeRepo.getThemeMode(),
         ).thenAnswer((_) async => Result.success(mode));
+        when(
+          mockThemeRepo.setThemeMode(mode),
+        ).thenAnswer((_) async => Result.success(null));
 
         // Act
-        await sut.setThemeMode(mode);
+        await sut.init();
+        await sut.setTheme(mode);
 
         // Assert
         verify(mockThemeRepo.setThemeMode(mode));
-        final expectedResult = mode;
-        expect(
-          sut.setThemeCommand.state,
-          CommandState.succeeded(expectedResult),
-        );
+        expect(sut.setThemeCommand.state, CommandState<void>.succeeded(null));
+        expect(sut.loadResourcesCommand.state, CommandState.succeeded(mode));
       }
     });
   });
