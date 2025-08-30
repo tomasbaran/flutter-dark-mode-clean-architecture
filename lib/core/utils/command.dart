@@ -12,18 +12,19 @@ sealed class CommandState<T> with _$CommandState<T> {
   const factory CommandState.failed(String message) = Failed<T>;
 }
 
-class Command<T> {
-  final Future<Result<T>> Function() _execute;
-  Command({required Future<Result<T>> Function() execute}) : _execute = execute;
+class Command<T, A> {
+  final Future<Result<T>> Function(A arg) _execute;
+  Command({required Future<Result<T>> Function(A arg) execute})
+    : _execute = execute;
 
   final _state = ValueNotifier<CommandState<T>>(CommandState.idle());
   CommandState<T> get state => _state.value;
 
-  execute() async {
+  execute(A arg) async {
     if (state is Executing<T>) return;
     _state.value = CommandState.executing();
 
-    final result = await _execute();
+    final result = await _execute(arg);
     result.when(
       success: (value) => _state.value = CommandState.succeeded(value),
       error: (message) => _state.value = CommandState.failed(message),

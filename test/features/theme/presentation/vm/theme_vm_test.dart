@@ -28,7 +28,7 @@ void main() {
       verify(mockThemeRepo.getThemeMode());
       final expectedResult = AppConfig.defaultThemeMode;
       expect(
-        sut.loadResourcesCommand.state,
+        sut.loadThemeCommand.state,
         CommandState.succeeded(expectedResult),
       );
     });
@@ -52,7 +52,7 @@ void main() {
         // Assert
         verify(mockThemeRepo.setThemeMode(mode));
         expect(sut.setThemeCommand.state, CommandState<void>.succeeded(null));
-        expect(sut.loadResourcesCommand.state, CommandState.succeeded(mode));
+        expect(sut.loadThemeCommand.state, CommandState.succeeded(mode));
       }
     });
   });

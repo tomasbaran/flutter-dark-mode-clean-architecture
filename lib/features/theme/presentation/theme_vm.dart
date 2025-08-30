@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:persistent_storage_key_value/core/app_config.dart';
 import 'package:persistent_storage_key_value/core/utils/command.dart';
 import 'package:persistent_storage_key_value/features/theme/domain/entities/theme_entity.dart';
 import 'package:persistent_storage_key_value/features/theme/domain/repos/theme_repo.dart';
@@ -9,15 +8,15 @@ class ThemeVM extends ChangeNotifier {
 
   ThemeVM({required ThemeRepo themeRepo}) : _themeRepo = themeRepo;
 
-  get loadResourcesCommand => _loadResourcesCommand;
+  get loadThemeCommand => _loadThemeCommand;
 
-  late final _loadResourcesCommand = Command(
-    execute: () async => await _themeRepo.getThemeMode(),
+  late final _loadThemeCommand = Command(
+    execute: (_) async => await _themeRepo.getThemeMode(),
   );
 
   Future init() async {
-    await _loadResourcesCommand.execute();
-    final state = _loadResourcesCommand.state;
+    await _loadThemeCommand.execute(null);
+    final state = _loadThemeCommand.state;
     switch (state) {
       case Succeeded(value: final themeMode):
         print(themeMode);
@@ -30,16 +29,12 @@ class ThemeVM extends ChangeNotifier {
     }
   }
 
-  AppThemeMode _themeMode = AppConfig.defaultThemeMode;
+  Command<void, AppThemeMode> get setThemeCommand => _setThemeCommand;
 
-  Command<void> get setThemeCommand => _setThemeCommand;
-
-  late final Command<void> _setThemeCommand = Command(
-    execute: () async => await _themeRepo.setThemeMode(_themeMode),
+  late final Command<void, AppThemeMode> _setThemeCommand = Command(
+    execute: (themeMode) async => await _themeRepo.setThemeMode(themeMode),
   );
 
-  setTheme(AppThemeMode themeMode) async {
-    _themeMode = themeMode;
-    await _setThemeCommand.execute();
-  }
+  setTheme(AppThemeMode themeMode) async =>
+      await _setThemeCommand.execute(themeMode);
 }
