@@ -8,10 +8,9 @@ class ThemeVM extends ChangeNotifier {
 
   ThemeVM({required ThemeRepo themeRepo}) : _themeRepo = themeRepo;
 
-  get loadThemeCommand => _loadThemeCommand;
-
+  Command<AppThemeMode, Object?> get loadThemeCommand => _loadThemeCommand;
   late final _loadThemeCommand = Command(
-    execute: (_) async => await _themeRepo.getThemeMode(),
+    execute: (_) => _themeRepo.getThemeMode(),
   );
 
   Future init() async {
@@ -30,7 +29,6 @@ class ThemeVM extends ChangeNotifier {
   }
 
   Command<void, AppThemeMode> get setThemeCommand => _setThemeCommand;
-
   late final Command<void, AppThemeMode> _setThemeCommand = Command(
     execute: (themeMode) async => await _themeRepo.setThemeMode(themeMode),
   );
