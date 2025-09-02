@@ -7,6 +7,8 @@ import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:persistent_storage_key_value/core/storage/key_value_store.dart'
+    as _i7;
 import 'package:persistent_storage_key_value/core/utils/result.dart' as _i4;
 import 'package:persistent_storage_key_value/features/theme/domain/entities/theme_entity.dart'
     as _i5;
@@ -69,4 +71,37 @@ class MockThemeRepo extends _i1.Mock implements _i2.ThemeRepo {
                 ),
           )
           as _i3.Future<_i4.Result<_i5.AppThemeMode>>);
+}
+
+/// A class which mocks [KeyValueStore].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockKeyValueStore extends _i1.Mock implements _i7.KeyValueStore {
+  @override
+  _i3.Future<bool> writeString(String? key, String? value) =>
+      (super.noSuchMethod(
+            Invocation.method(#writeString, [key, value]),
+            returnValue: _i3.Future<bool>.value(false),
+            returnValueForMissingStub: _i3.Future<bool>.value(false),
+          )
+          as _i3.Future<bool>);
+
+  @override
+  _i3.Future<String> readString(String? key) =>
+      (super.noSuchMethod(
+            Invocation.method(#readString, [key]),
+            returnValue: _i3.Future<String>.value(
+              _i6.dummyValue<String>(
+                this,
+                Invocation.method(#readString, [key]),
+              ),
+            ),
+            returnValueForMissingStub: _i3.Future<String>.value(
+              _i6.dummyValue<String>(
+                this,
+                Invocation.method(#readString, [key]),
+              ),
+            ),
+          )
+          as _i3.Future<String>);
 }
