@@ -21,7 +21,7 @@ void main() {
       // Arrange
       when(
         mockKeyValueStore.readString('theme_mode'),
-      ).thenReturn(Future.value(AppConfig.defaultThemeMode.name));
+      ).thenAnswer((_) async => AppConfig.defaultThemeMode.name);
       // Act
       final result = await sut.getThemeMode();
       // Assert
@@ -34,12 +34,12 @@ void main() {
         // Arrange
         when(
           mockKeyValueStore.readString('theme_mode'),
-        ).thenReturn(Future.value(mode.name));
+        ).thenAnswer((_) async => mode.name);
         // Act
         await sut.setThemeMode(mode);
         // Assert
-        final result = await sut.getThemeMode();
         final expectedResult = Result.success(mode);
+        final result = await sut.getThemeMode();
         verify(mockKeyValueStore.writeString('theme_mode', mode.name));
         expect(result, expectedResult);
       }

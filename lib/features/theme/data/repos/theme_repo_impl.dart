@@ -11,20 +11,25 @@ class ThemeRepoImpl extends ThemeRepo {
 
   @override
   Future<Result<AppThemeMode>> getThemeMode() async {
-    // fake implementation
-    return Result.success(AppThemeMode.light);
-    return Result.error('error getting theme mode');
-    // TODO: implement
-    // return _keyValueStore.readString('theme_mode');
+    try {
+      final storedThemeMode = await _keyValueStore.readString('theme_mode');
+      final themeMode = AppThemeMode.values.firstWhere(
+        (e) => e.name == storedThemeMode,
+        orElse: () => AppThemeMode.light,
+      );
+      return Result.success(themeMode);
+    } catch (e) {
+      return Result.error('Error reading theme mode from key value store');
+    }
   }
 
   @override
   Future<Result<void>> setThemeMode(AppThemeMode themeMode) async {
-    // fake implementation
-    return Result.success(null);
-    return Result.error('Error setting theme mode');
-    // TODO: implement
-
-    // return _keyValueStore.writeString('theme_mode', themeMode.name);
+    try {
+      await _keyValueStore.writeString('theme_mode', themeMode.name);
+      return Result.success(null);
+    } catch (e) {
+      return Result.error('Error writing theme mode to key value store');
+    }
   }
 }
