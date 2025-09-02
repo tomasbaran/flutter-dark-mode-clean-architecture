@@ -2,19 +2,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:persistent_storage_key_value/core/app_config.dart';
 import 'package:persistent_storage_key_value/core/utils/result.dart';
-import 'package:persistent_storage_key_value/features/theme/data/repos/theme_repo_fake_impl.dart';
+import 'package:persistent_storage_key_value/features/theme/data/repos/theme_repo_impl.dart';
 import 'package:persistent_storage_key_value/features/theme/domain/entities/theme_entity.dart';
 
 import '../../../../core/mocks/mocks_generator.mocks.dart';
 
 void main() {
-  group('ThemeRepoFakeImpl', () {
+  group('ThemeRepoImpl', () {
     late ThemeRepoImpl sut;
     late MockKeyValueStore mockKeyValueStore;
 
     setUp(() {
       mockKeyValueStore = MockKeyValueStore();
-      sut = ThemeRepoImpl(mockKeyValueStore);
+      sut = ThemeRepoImpl(keyValueStore: mockKeyValueStore);
     });
 
     test('should return the default theme mode by default', () async {
