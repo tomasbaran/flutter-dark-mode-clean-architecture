@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_storage_key_value/core/app_dependencies.dart';
+import 'package:persistent_storage_key_value/features/theme/presentation/widgets/theme_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,8 +11,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+    return MaterialApp(
+      home: AppDependencies.buildThemeScreen(child: const ThemeScreen()),
     );
   }
 }
