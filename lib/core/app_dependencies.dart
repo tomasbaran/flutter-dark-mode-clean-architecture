@@ -16,7 +16,7 @@ class AppDependencies {
   static ThemeVM get themeVM => ThemeVM(themeRepo: themeRepo);
 
   static Widget buildThemeScreen({required Widget child}) {
-    return Provider<ThemeVM>(
+    return ChangeNotifierProvider<ThemeVM>(
       create: (context) => themeVM..init(),
       child: child,
     );

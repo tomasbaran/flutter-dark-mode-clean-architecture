@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_storage_key_value/core/app_config.dart';
 import 'package:persistent_storage_key_value/features/theme/domain/entities/theme_entity.dart';
 import 'package:persistent_storage_key_value/features/theme/presentation/theme_vm.dart';
 import 'package:provider/provider.dart';
@@ -9,14 +10,24 @@ class ThemeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeVM = context.read<ThemeVM>();
+    final themeVM = context.watch<ThemeVM>();
     return Scaffold(
       backgroundColor: themeVM.themeMode == AppThemeMode.light
           ? Colors.white
           : Colors.black,
       appBar: AppBar(
-        title: Text('Theme Screen'),
-        actions: [CupertinoSwitch(value: true, onChanged: (value) {})],
+        title: Text('Dark Mode'),
+        actions: [
+          CupertinoSwitch(
+            value: themeVM.themeMode == AppThemeMode.dark,
+            onChanged: (value) {
+              final setToDarkMode = value;
+              themeVM.setTheme(
+                setToDarkMode ? AppThemeMode.dark : AppConfig.defaultThemeMode,
+              );
+            },
+          ),
+        ],
       ),
       body: Center(child: Text(themeVM.themeMode.name)),
     );
