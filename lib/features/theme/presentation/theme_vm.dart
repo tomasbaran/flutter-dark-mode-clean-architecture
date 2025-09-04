@@ -4,11 +4,12 @@ import 'package:persistent_storage_key_value/core/utils/command.dart';
 import 'package:persistent_storage_key_value/features/theme/domain/entities/theme_entity.dart';
 import 'package:persistent_storage_key_value/features/theme/domain/repos/theme_repo.dart';
 
-class ThemeVM extends ValueNotifier<AppThemeMode> {
+class ThemeVM extends ChangeNotifier {
   final ThemeRepo _themeRepo;
-  ThemeVM({required ThemeRepo themeRepo})
-    : _themeRepo = themeRepo,
-      super(AppConfig.defaultThemeMode);
+  ThemeVM({required ThemeRepo themeRepo}) : _themeRepo = themeRepo;
+
+  AppThemeMode _themeMode = AppConfig.defaultThemeMode;
+  AppThemeMode get themeMode => _themeMode;
 
   Command<AppThemeMode, Object?> get loadThemeCommand => _loadThemeCommand;
   late final _loadThemeCommand = Command(
@@ -36,7 +37,8 @@ class ThemeVM extends ValueNotifier<AppThemeMode> {
   );
 
   setTheme(AppThemeMode themeMode) async {
-    value = themeMode;
+    _themeMode = themeMode;
+    notifyListeners();
     await _setThemeCommand.execute(themeMode);
   }
 }

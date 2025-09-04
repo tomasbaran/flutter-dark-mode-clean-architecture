@@ -12,14 +12,14 @@ class ThemeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeVM = context.watch<ThemeVM>();
     return Scaffold(
-      backgroundColor: themeVM.value == AppThemeMode.light
+      backgroundColor: themeVM.themeMode == AppThemeMode.light
           ? Colors.white
           : Colors.black,
       appBar: AppBar(
         title: Text('Dark Mode'),
         actions: [
           CupertinoSwitch(
-            value: themeVM.value == AppThemeMode.dark,
+            value: themeVM.themeMode == AppThemeMode.dark,
             onChanged: (value) {
               final setToDarkMode = value;
               themeVM.setTheme(
@@ -29,7 +29,7 @@ class ThemeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(child: Text(themeVM.value.name)),
+      body: Center(child: Text(themeVM.themeMode.name)),
     );
   }
 }
