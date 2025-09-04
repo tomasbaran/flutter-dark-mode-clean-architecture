@@ -11,7 +11,9 @@ class ThemeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeVM = context.read<ThemeVM>();
-    final themeMode = context.watch<ThemeVM>().themeMode;
+    final themeMode = context.select<ThemeVM, AppThemeMode>(
+      (vm) => vm.themeMode,
+    );
     return Scaffold(
       backgroundColor: themeMode == AppThemeMode.light
           ? Colors.white
