@@ -7,15 +7,17 @@ import 'package:provider/provider.dart';
 
 class AppDependencies {
   static Widget buildThemeScreen({required Widget child}) {
-    // Stores and Services
-    final keyValueStore = KeyValueStoreImpl();
-    // Repos
-    final themeRepo = ThemeRepoImpl(keyValueStore: keyValueStore);
-    // View Models
-    final themeVM = ThemeVM(themeRepo: themeRepo);
-
-    return ChangeNotifierProvider<ThemeVM>.value(
-      value: themeVM..init(),
+    return ChangeNotifierProvider<ThemeVM>(
+      create: (_) {
+        // Stores and Services
+        final keyValueStore = KeyValueStoreImpl();
+        // Repos
+        final themeRepo = ThemeRepoImpl(keyValueStore: keyValueStore);
+        // View Models
+        final themeVM = ThemeVM(themeRepo: themeRepo);
+        themeVM.init();
+        return themeVM;
+      },
       child: child,
     );
   }
