@@ -3,17 +3,21 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
+import 'dart:ui' as _i10;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:persistent_storage_key_value/core/storage/key_value_store.dart'
-    as _i7;
-import 'package:persistent_storage_key_value/core/utils/result.dart' as _i4;
+    as _i8;
+import 'package:persistent_storage_key_value/core/utils/command.dart' as _i2;
+import 'package:persistent_storage_key_value/core/utils/result.dart' as _i5;
 import 'package:persistent_storage_key_value/features/theme/domain/entities/theme_entity.dart'
-    as _i5;
+    as _i6;
 import 'package:persistent_storage_key_value/features/theme/domain/repos/theme_repo.dart'
-    as _i2;
+    as _i3;
+import 'package:persistent_storage_key_value/features/theme/presentation/theme_vm.dart'
+    as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,79 +33,167 @@ import 'package:persistent_storage_key_value/features/theme/domain/repos/theme_r
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeCommand_0<T, A> extends _i1.SmartFake implements _i2.Command<T, A> {
+  _FakeCommand_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [ThemeRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockThemeRepo extends _i1.Mock implements _i2.ThemeRepo {
+class MockThemeRepo extends _i1.Mock implements _i3.ThemeRepo {
   @override
-  _i3.Future<_i4.Result<void>> setThemeMode(_i5.AppThemeMode? themeMode) =>
+  _i4.Future<_i5.Result<void>> setThemeMode(_i6.AppThemeMode? themeMode) =>
       (super.noSuchMethod(
             Invocation.method(#setThemeMode, [themeMode]),
-            returnValue: _i3.Future<_i4.Result<void>>.value(
-              _i6.dummyValue<_i4.Result<void>>(
+            returnValue: _i4.Future<_i5.Result<void>>.value(
+              _i7.dummyValue<_i5.Result<void>>(
                 this,
                 Invocation.method(#setThemeMode, [themeMode]),
               ),
             ),
-            returnValueForMissingStub: _i3.Future<_i4.Result<void>>.value(
-              _i6.dummyValue<_i4.Result<void>>(
+            returnValueForMissingStub: _i4.Future<_i5.Result<void>>.value(
+              _i7.dummyValue<_i5.Result<void>>(
                 this,
                 Invocation.method(#setThemeMode, [themeMode]),
               ),
             ),
           )
-          as _i3.Future<_i4.Result<void>>);
+          as _i4.Future<_i5.Result<void>>);
 
   @override
-  _i3.Future<_i4.Result<_i5.AppThemeMode>> getThemeMode() =>
+  _i4.Future<_i5.Result<_i6.AppThemeMode>> getThemeMode() =>
       (super.noSuchMethod(
             Invocation.method(#getThemeMode, []),
-            returnValue: _i3.Future<_i4.Result<_i5.AppThemeMode>>.value(
-              _i6.dummyValue<_i4.Result<_i5.AppThemeMode>>(
+            returnValue: _i4.Future<_i5.Result<_i6.AppThemeMode>>.value(
+              _i7.dummyValue<_i5.Result<_i6.AppThemeMode>>(
                 this,
                 Invocation.method(#getThemeMode, []),
               ),
             ),
             returnValueForMissingStub:
-                _i3.Future<_i4.Result<_i5.AppThemeMode>>.value(
-                  _i6.dummyValue<_i4.Result<_i5.AppThemeMode>>(
+                _i4.Future<_i5.Result<_i6.AppThemeMode>>.value(
+                  _i7.dummyValue<_i5.Result<_i6.AppThemeMode>>(
                     this,
                     Invocation.method(#getThemeMode, []),
                   ),
                 ),
           )
-          as _i3.Future<_i4.Result<_i5.AppThemeMode>>);
+          as _i4.Future<_i5.Result<_i6.AppThemeMode>>);
 }
 
 /// A class which mocks [KeyValueStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockKeyValueStore extends _i1.Mock implements _i7.KeyValueStore {
+class MockKeyValueStore extends _i1.Mock implements _i8.KeyValueStore {
   @override
-  _i3.Future<bool> writeString(String? key, String? value) =>
+  _i4.Future<bool> writeString(String? key, String? value) =>
       (super.noSuchMethod(
             Invocation.method(#writeString, [key, value]),
-            returnValue: _i3.Future<bool>.value(false),
-            returnValueForMissingStub: _i3.Future<bool>.value(false),
+            returnValue: _i4.Future<bool>.value(false),
+            returnValueForMissingStub: _i4.Future<bool>.value(false),
           )
-          as _i3.Future<bool>);
+          as _i4.Future<bool>);
 
   @override
-  _i3.Future<String> readString(String? key) =>
+  _i4.Future<String?> readString(String? key) =>
       (super.noSuchMethod(
             Invocation.method(#readString, [key]),
-            returnValue: _i3.Future<String>.value(
-              _i6.dummyValue<String>(
-                this,
-                Invocation.method(#readString, [key]),
-              ),
+            returnValue: _i4.Future<String?>.value(),
+            returnValueForMissingStub: _i4.Future<String?>.value(),
+          )
+          as _i4.Future<String?>);
+}
+
+/// A class which mocks [ThemeVM].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockThemeVM extends _i1.Mock implements _i9.ThemeVM {
+  @override
+  _i6.AppThemeMode get themeMode =>
+      (super.noSuchMethod(
+            Invocation.getter(#themeMode),
+            returnValue: _i6.AppThemeMode.light,
+            returnValueForMissingStub: _i6.AppThemeMode.light,
+          )
+          as _i6.AppThemeMode);
+
+  @override
+  _i2.Command<_i6.AppThemeMode, Object?> get loadThemeCommand =>
+      (super.noSuchMethod(
+            Invocation.getter(#loadThemeCommand),
+            returnValue: _FakeCommand_0<_i6.AppThemeMode, Object?>(
+              this,
+              Invocation.getter(#loadThemeCommand),
             ),
-            returnValueForMissingStub: _i3.Future<String>.value(
-              _i6.dummyValue<String>(
-                this,
-                Invocation.method(#readString, [key]),
-              ),
+            returnValueForMissingStub:
+                _FakeCommand_0<_i6.AppThemeMode, Object?>(
+                  this,
+                  Invocation.getter(#loadThemeCommand),
+                ),
+          )
+          as _i2.Command<_i6.AppThemeMode, Object?>);
+
+  @override
+  _i2.Command<void, _i6.AppThemeMode> get setThemeCommand =>
+      (super.noSuchMethod(
+            Invocation.getter(#setThemeCommand),
+            returnValue: _FakeCommand_0<void, _i6.AppThemeMode>(
+              this,
+              Invocation.getter(#setThemeCommand),
+            ),
+            returnValueForMissingStub: _FakeCommand_0<void, _i6.AppThemeMode>(
+              this,
+              Invocation.getter(#setThemeCommand),
             ),
           )
-          as _i3.Future<String>);
+          as _i2.Command<void, _i6.AppThemeMode>);
+
+  @override
+  bool get hasListeners =>
+      (super.noSuchMethod(
+            Invocation.getter(#hasListeners),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  _i4.Future<dynamic> init() =>
+      (super.noSuchMethod(
+            Invocation.method(#init, []),
+            returnValue: _i4.Future<dynamic>.value(),
+            returnValueForMissingStub: _i4.Future<dynamic>.value(),
+          )
+          as _i4.Future<dynamic>);
+
+  @override
+  dynamic setTheme(_i6.AppThemeMode? themeMode) => super.noSuchMethod(
+    Invocation.method(#setTheme, [themeMode]),
+    returnValueForMissingStub: null,
+  );
+
+  @override
+  void addListener(_i10.VoidCallback? listener) => super.noSuchMethod(
+    Invocation.method(#addListener, [listener]),
+    returnValueForMissingStub: null,
+  );
+
+  @override
+  void removeListener(_i10.VoidCallback? listener) => super.noSuchMethod(
+    Invocation.method(#removeListener, [listener]),
+    returnValueForMissingStub: null,
+  );
+
+  @override
+  void dispose() => super.noSuchMethod(
+    Invocation.method(#dispose, []),
+    returnValueForMissingStub: null,
+  );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+    Invocation.method(#notifyListeners, []),
+    returnValueForMissingStub: null,
+  );
 }
