@@ -43,6 +43,7 @@ class AppDependencies {
   // Repos
   static ThemeRepo? _themeRepo;
 
+  // Lazy initialization of dependencies
   static KeyValueStore get keyValueStore =>
       _keyValueStore ??= KeyValueStoreImpl();
   static ThemeRepo get themeRepo =>
