@@ -16,12 +16,14 @@ class KeyValueStoreImpl implements KeyValueStore {
   @override
   Future<bool> writeString(String key, String value) async {
     await _ensureInitialized();
+    await Future.delayed(const Duration(seconds: 1));
     return await _prefs!.setString(key, value);
   }
 
   @override
   Future<String?> readString(String key) async {
     await _ensureInitialized();
+    await Future.delayed(const Duration(seconds: 1));
     return _prefs!.getString(key);
   }
 }

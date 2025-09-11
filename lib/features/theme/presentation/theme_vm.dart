@@ -21,17 +21,20 @@ class ThemeVM extends ChangeNotifier {
     final state = _loadThemeCommand.state;
     switch (state) {
       case Succeeded(value: final themeMode):
-        print(themeMode);
+        _themeMode = themeMode;
+        notifyListeners();
+        print('Command succeeded: $themeMode');
       case Failed(message: final error):
-        print(error);
+        print('Command failed: $error');
       case Executing():
-        print('loading');
+        print('Command executing');
       case Idle():
-        print('idle');
+        print('Command idle');
     }
   }
 
   Command<void, AppThemeMode> get setThemeCommand => _setThemeCommand;
+
   late final Command<void, AppThemeMode> _setThemeCommand = Command(
     execute: (themeMode) async => await _themeRepo.setThemeMode(themeMode),
   );

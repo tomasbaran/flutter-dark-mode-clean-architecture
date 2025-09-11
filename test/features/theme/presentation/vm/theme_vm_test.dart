@@ -16,22 +16,32 @@ void main() {
       mockThemeRepo = MockThemeRepo();
       sut = ThemeVM(themeRepo: mockThemeRepo);
     });
-    test('should return the default theme mode by default', () async {
-      // Arrange
-      provideDummy(Result.success(AppConfig.defaultThemeMode));
-      when(
-        mockThemeRepo.getThemeMode(),
-      ).thenAnswer((_) async => Result.success(AppConfig.defaultThemeMode));
-      // Act
-      await sut.init();
-      // Assert
-      verify(mockThemeRepo.getThemeMode());
-      final expectedResult = AppConfig.defaultThemeMode;
-      expect(
-        sut.loadThemeCommand.state,
-        CommandState.succeeded(expectedResult),
-      );
-    });
+    test(
+      'should 1. return the default theme mode by default and 2. get the theme mode from the repository',
+      () async {
+        // 1. Get the default theme mode
+        expect(sut.themeMode, AppConfig.defaultThemeMode);
+
+        // 2. Get the theme mode from the repository
+        final expectedResult = AppConfig.defaultThemeMode == AppThemeMode.light
+            ? AppThemeMode.dark
+            : AppThemeMode.light;
+        provideDummy(Result.success(expectedResult));
+        when(
+          mockThemeRepo.getThemeMode(),
+        ).thenAnswer((_) async => Result.success(expectedResult));
+
+        bool listenerCalled = false;
+        sut.addListener(() => listenerCalled = true);
+
+        // Act
+        await sut.init();
+        // Assert
+        verify(mockThemeRepo.getThemeMode());
+        expect(listenerCalled, true);
+        expect(sut.themeMode, expectedResult);
+      },
+    );
 
     test('should return the correct theme mode after setting it', () async {
       for (final mode in AppThemeMode.values) {
@@ -47,12 +57,16 @@ void main() {
 
         // Act
         await sut.init();
+
+        bool setThemeListenerCalled = false;
+        sut.addListener(() => setThemeListenerCalled = true);
         await sut.setTheme(mode);
 
         // Assert
+        verify(mockThemeRepo.getThemeMode());
+        expect(setThemeListenerCalled, true);
+        expect(sut.themeMode, mode);
         verify(mockThemeRepo.setThemeMode(mode));
-        expect(sut.setThemeCommand.state, CommandState<void>.succeeded(null));
-        expect(sut.loadThemeCommand.state, CommandState.succeeded(mode));
       }
     });
   });
