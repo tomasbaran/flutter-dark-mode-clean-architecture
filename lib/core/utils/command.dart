@@ -18,7 +18,7 @@ class Command<T, A> {
     : _execute = execute;
 
   final _state = ValueNotifier<CommandState<T>>(CommandState.idle());
-  CommandState<T> get state => _state.value;
+  ValueNotifier<CommandState<T>> get state => _state;
 
   execute(A arg) async {
     if (state is Executing<T>) return;
