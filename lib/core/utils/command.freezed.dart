@@ -186,8 +186,8 @@ return failed(_that.message);case _:
 /// @nodoc
 
 
-class Idle<T> implements CommandState<T> {
-  const Idle();
+class Idle<T> extends CommandState<T> {
+  const Idle(): super._();
   
 
 
@@ -218,8 +218,8 @@ String toString() {
 /// @nodoc
 
 
-class Executing<T> implements CommandState<T> {
-  const Executing();
+class Executing<T> extends CommandState<T> {
+  const Executing(): super._();
   
 
 
@@ -250,8 +250,8 @@ String toString() {
 /// @nodoc
 
 
-class Succeeded<T> implements CommandState<T> {
-  const Succeeded(this.value);
+class Succeeded<T> extends CommandState<T> {
+  const Succeeded(this.value): super._();
   
 
  final  T value;
@@ -316,8 +316,8 @@ as T,
 /// @nodoc
 
 
-class Failed<T> implements CommandState<T> {
-  const Failed(this.message);
+class Failed<T> extends CommandState<T> {
+  const Failed(this.message): super._();
   
 
  final  String message;

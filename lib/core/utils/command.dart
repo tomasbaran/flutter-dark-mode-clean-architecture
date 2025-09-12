@@ -6,10 +6,21 @@ part 'command.freezed.dart';
 
 @freezed
 sealed class CommandState<T> with _$CommandState<T> {
+  const CommandState._();
+
   const factory CommandState.idle() = Idle<T>;
   const factory CommandState.executing() = Executing<T>;
   const factory CommandState.succeeded(T value) = Succeeded<T>;
   const factory CommandState.failed(String message) = Failed<T>;
+
+  String get stateName {
+    return when(
+      idle: () => 'idle',
+      executing: () => 'executing',
+      succeeded: (value) => 'succeeded',
+      failed: (message) => 'failed',
+    );
+  }
 }
 
 class Command<T, A> {
