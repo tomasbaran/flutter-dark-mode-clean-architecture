@@ -18,12 +18,12 @@ class ThemeVM extends ChangeNotifier {
 
   Future init() async {
     await _loadThemeCommand.execute(null);
-    final state = _loadThemeCommand.state;
+    final state = _loadThemeCommand.state.value;
     switch (state) {
-      case Succeeded(value: final themeMode):
-        _themeMode = themeMode;
+      case Succeeded(value: final themeModeFromRepo):
+        print('Command succeeded: $themeModeFromRepo');
+        _themeMode = themeModeFromRepo;
         notifyListeners();
-        print('Command succeeded: $themeMode');
       case Failed(message: final error):
         print('Command failed: $error');
       case Executing():
