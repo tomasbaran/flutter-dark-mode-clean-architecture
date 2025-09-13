@@ -5,9 +5,9 @@ import 'package:persistent_storage_key_value/core/utils/command.dart';
 import 'package:persistent_storage_key_value/core/utils/result.dart';
 
 void main() {
-  Future<Result<int>> fakeFunction(_) async => Result.success(1);
+  Future<Result<int>> fakeFunction(_) async => Result.ok(1);
   Future<Result<int>> fakeFunctionWithArgument(bool arg) async =>
-      arg ? Result.success(1) : Result.error('Error');
+      arg ? Result.ok(1) : Result.error('Error');
 
   group('Command', () {
     test('happy path minimal', () async {
@@ -47,7 +47,7 @@ void main() {
         execute: (_) async {
           await completer.future; // Keep the execution alive
           executed++;
-          return Result.success(null);
+          return Result.ok(null);
         },
       );
 

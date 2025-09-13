@@ -26,10 +26,10 @@ void main() {
         final expectedResult = AppConfig.defaultThemeMode == AppThemeMode.light
             ? AppThemeMode.dark
             : AppThemeMode.light;
-        provideDummy(Result.success(expectedResult));
+        provideDummy(Result.ok(expectedResult));
         when(
           mockThemeRepo.getThemeMode(),
-        ).thenAnswer((_) async => Result.success(expectedResult));
+        ).thenAnswer((_) async => Result.ok(expectedResult));
 
         bool listenerCalled = false;
         sut.addListener(() => listenerCalled = true);
@@ -46,14 +46,14 @@ void main() {
     test('should return the correct theme mode after setting it', () async {
       for (final mode in AppThemeMode.values) {
         // Arrange
-        provideDummy<Result<void>>(Result.success(null));
-        provideDummy<Result<AppThemeMode>>(Result.success(mode));
+        provideDummy<Result<void>>(Result.ok(null));
+        provideDummy<Result<AppThemeMode>>(Result.ok(mode));
         when(
           mockThemeRepo.getThemeMode(),
-        ).thenAnswer((_) async => Result.success(mode));
+        ).thenAnswer((_) async => Result.ok(mode));
         when(
           mockThemeRepo.setThemeMode(mode),
-        ).thenAnswer((_) async => Result.success(null));
+        ).thenAnswer((_) async => Result.ok(null));
 
         // Act
         await sut.init();

@@ -25,7 +25,7 @@ void main() {
       // Act
       final result = await sut.getThemeMode();
       // Assert
-      final expectedResult = Result.success(AppConfig.defaultThemeMode);
+      final expectedResult = Result.ok(AppConfig.defaultThemeMode);
       expect(result, expectedResult);
     });
 
@@ -38,7 +38,7 @@ void main() {
         // Act
         await sut.setThemeMode(mode);
         // Assert
-        final expectedResult = Result.success(mode);
+        final expectedResult = Result.ok(mode);
         final result = await sut.getThemeMode();
         verify(mockKeyValueStore.writeString('theme_mode', mode.name));
         expect(result, expectedResult);

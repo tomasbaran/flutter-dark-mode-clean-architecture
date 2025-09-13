@@ -37,7 +37,7 @@ class Command<T, A> {
 
     final result = await _execute(arg);
     result.when(
-      success: (value) => _state.value = CommandState.succeeded(value),
+      ok: (value) => _state.value = CommandState.succeeded(value),
       error: (message) => _state.value = CommandState.failed(message),
     );
   }

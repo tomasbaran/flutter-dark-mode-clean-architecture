@@ -55,11 +55,11 @@ extension ResultPatterns<T> on Result<T> {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Success<T> value)?  success,TResult Function( Error<T> value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Ok<T> value)?  ok,TResult Function( Error<T> value)?  error,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case Success() when success != null:
-return success(_that);case Error() when error != null:
+case Ok() when ok != null:
+return ok(_that);case Error() when error != null:
 return error(_that);case _:
   return orElse();
 
@@ -78,11 +78,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Success<T> value)  success,required TResult Function( Error<T> value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Ok<T> value)  ok,required TResult Function( Error<T> value)  error,}){
 final _that = this;
 switch (_that) {
-case Success():
-return success(_that);case Error():
+case Ok():
+return ok(_that);case Error():
 return error(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -97,11 +97,11 @@ return error(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Success<T> value)?  success,TResult? Function( Error<T> value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Ok<T> value)?  ok,TResult? Function( Error<T> value)?  error,}){
 final _that = this;
 switch (_that) {
-case Success() when success != null:
-return success(_that);case Error() when error != null:
+case Ok() when ok != null:
+return ok(_that);case Error() when error != null:
 return error(_that);case _:
   return null;
 
@@ -119,10 +119,10 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( T value)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( T value)?  ok,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case Success() when success != null:
-return success(_that.value);case Error() when error != null:
+case Ok() when ok != null:
+return ok(_that.value);case Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -141,10 +141,10 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( T value)  success,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( T value)  ok,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
-case Success():
-return success(_that.value);case Error():
+case Ok():
+return ok(_that.value);case Error():
 return error(_that.message);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -159,10 +159,10 @@ return error(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( T value)?  success,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( T value)?  ok,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
-case Success() when success != null:
-return success(_that.value);case Error() when error != null:
+case Ok() when ok != null:
+return ok(_that.value);case Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -174,8 +174,8 @@ return error(_that.message);case _:
 /// @nodoc
 
 
-class Success<T> implements Result<T> {
-  const Success(this.value);
+class Ok<T> implements Result<T> {
+  const Ok(this.value);
   
 
  final  T value;
@@ -184,13 +184,13 @@ class Success<T> implements Result<T> {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SuccessCopyWith<T, Success<T>> get copyWith => _$SuccessCopyWithImpl<T, Success<T>>(this, _$identity);
+$OkCopyWith<T, Ok<T>> get copyWith => _$OkCopyWithImpl<T, Ok<T>>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success<T>&&const DeepCollectionEquality().equals(other.value, value));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Ok<T>&&const DeepCollectionEquality().equals(other.value, value));
 }
 
 
@@ -199,15 +199,15 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'Result<$T>.success(value: $value)';
+  return 'Result<$T>.ok(value: $value)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SuccessCopyWith<T,$Res> implements $ResultCopyWith<T, $Res> {
-  factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) _then) = _$SuccessCopyWithImpl;
+abstract mixin class $OkCopyWith<T,$Res> implements $ResultCopyWith<T, $Res> {
+  factory $OkCopyWith(Ok<T> value, $Res Function(Ok<T>) _then) = _$OkCopyWithImpl;
 @useResult
 $Res call({
  T value
@@ -218,17 +218,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$SuccessCopyWithImpl<T,$Res>
-    implements $SuccessCopyWith<T, $Res> {
-  _$SuccessCopyWithImpl(this._self, this._then);
+class _$OkCopyWithImpl<T,$Res>
+    implements $OkCopyWith<T, $Res> {
+  _$OkCopyWithImpl(this._self, this._then);
 
-  final Success<T> _self;
-  final $Res Function(Success<T>) _then;
+  final Ok<T> _self;
+  final $Res Function(Ok<T>) _then;
 
 /// Create a copy of Result
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? value = freezed,}) {
-  return _then(Success<T>(
+  return _then(Ok<T>(
 freezed == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as T,
   ));

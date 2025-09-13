@@ -17,7 +17,7 @@ class ThemeRepoImpl extends ThemeRepo {
         (e) => e.name == storedThemeMode,
         orElse: () => AppThemeMode.light,
       );
-      return Result.success(themeMode);
+      return Result.ok(themeMode);
     } catch (e) {
       return Result.error('Error reading theme mode from key value store');
     }
@@ -27,7 +27,7 @@ class ThemeRepoImpl extends ThemeRepo {
   Future<Result<void>> setThemeMode(AppThemeMode themeMode) async {
     try {
       await _keyValueStore.writeString('theme_mode', themeMode.name);
-      return Result.success(null);
+      return Result.ok(null);
     } catch (e) {
       return Result.error('Error writing theme mode to key value store');
     }
