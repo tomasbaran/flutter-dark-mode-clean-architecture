@@ -51,6 +51,7 @@ class ThemeScreen extends StatelessWidget {
       ),
       body: AppLoadingWrapper<AppThemeMode>(
         loadingState: themeVM.loadThemeCommand.state,
+        errorType: AppErrorType.snackBar,
         child: Center(child: Text(themeMode.name)),
       ),
     );
