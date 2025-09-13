@@ -17,6 +17,7 @@ class KeyValueStoreImpl implements KeyValueStore {
   Future<bool> writeString(String key, String value) async {
     await _ensureInitialized();
     await Future.delayed(const Duration(seconds: 1));
+    // throw Exception('Error writing string to key value store');
     return await _prefs!.setString(key, value);
   }
 
@@ -24,6 +25,7 @@ class KeyValueStoreImpl implements KeyValueStore {
   Future<String?> readString(String key) async {
     await _ensureInitialized();
     await Future.delayed(const Duration(seconds: 1));
+    // throw Exception('Error reading string from key value store');
     return _prefs!.getString(key);
   }
 }

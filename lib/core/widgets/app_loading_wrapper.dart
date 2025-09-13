@@ -4,7 +4,7 @@ import 'package:persistent_storage_key_value/core/widgets/app_error_bottom_sheet
 
 enum AppErrorType {
   silent,
-  snackBar,
+  snackbar,
   bottomSheet,
 }
 
@@ -16,7 +16,7 @@ class AppLoadingWrapper<T> extends StatefulWidget {
     super.key,
     required this.child,
     required this.loadingState,
-    this.errorType = AppErrorType.snackBar,
+    this.errorType = AppErrorType.snackbar,
   });
 
   @override
@@ -38,7 +38,7 @@ class _AppLoadingWrapperState<T> extends State<AppLoadingWrapper<T>> {
 
   _onError(Failed<T> failedState) {
     switch (widget.errorType) {
-      case AppErrorType.snackBar:
+      case AppErrorType.snackbar:
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(failedState.message)),

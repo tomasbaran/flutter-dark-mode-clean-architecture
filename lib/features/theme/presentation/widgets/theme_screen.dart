@@ -25,15 +25,33 @@ class ThemeScreen extends StatelessWidget {
         leading: Center(
           child: ValueListenableBuilder<CommandState<void>>(
             valueListenable: themeVM.setThemeCommand.state,
-            builder: (_, loadThemeCommandState, __) =>
-                (loadThemeCommandState is Executing<void>)
-                ? const Center(
-                    child: Text(
-                      'saving...',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  )
-                : const SizedBox.shrink(),
+            builder: (_, setThemeCommandState, __) {
+              if (setThemeCommandState is Executing<void>) {
+                return const Center(
+                  child: Text(
+                    'saving...',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                );
+              }
+
+              if (setThemeCommandState is Failed<void>) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Failed to save theme: ${setThemeCommandState.message}',
+                        ),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                });
+              }
+
+              return const SizedBox.shrink();
+            },
           ),
         ),
         title: Text('Dark Mode'),
@@ -51,7 +69,7 @@ class ThemeScreen extends StatelessWidget {
       ),
       body: AppLoadingWrapper<AppThemeMode>(
         loadingState: themeVM.loadThemeCommand.state,
-        errorType: AppErrorType.snackBar,
+        errorType: AppErrorType.snackbar,
         child: Center(child: Text(themeMode.name)),
       ),
     );
