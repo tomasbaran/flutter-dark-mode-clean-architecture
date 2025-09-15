@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:persistent_storage_key_value/core/app_config.dart';
+import 'package:persistent_storage_key_value/core/utils/command.dart';
+import 'package:persistent_storage_key_value/core/utils/result.dart';
 import 'package:persistent_storage_key_value/features/theme/domain/entities/theme_entity.dart';
 import 'package:persistent_storage_key_value/features/theme/presentation/theme_vm.dart';
 import 'package:persistent_storage_key_value/features/theme/presentation/widgets/theme_screen.dart';
@@ -15,12 +17,17 @@ void main() {
     late MockThemeVM mockThemeVM;
     setUp(() {
       mockThemeVM = MockThemeVM();
+      when(mockThemeVM.themeMode).thenReturn(AppConfig.defaultThemeMode);
+      when(mockThemeVM.loadThemeCommand).thenReturn(
+        Command(execute: (_) async => Result.ok(AppConfig.defaultThemeMode)),
+      );
+      when(
+        mockThemeVM.setThemeCommand,
+      ).thenReturn(Command(execute: (_) async => Result.ok(null)));
     });
     testWidgets('should display the correct theme mode and switch value', (
       tester,
     ) async {
-      // Arrange
-      when(mockThemeVM.themeMode).thenReturn(AppConfig.defaultThemeMode);
       // Act
       final themeScreen = MaterialApp(
         home: ChangeNotifierProvider<ThemeVM>.value(
