@@ -13,31 +13,31 @@ void main() {
     test('happy path minimal', () async {
       final sut = Command(execute: fakeFunction);
 
-      expect(sut.state, CommandState<int>.idle());
+      expect(sut.state.value, CommandState<int>.idle());
       final future = sut.execute(null);
-      expect(sut.state, CommandState<int>.executing());
+      expect(sut.state.value, CommandState<int>.executing());
       await future;
-      expect(sut.state, CommandState<int>.succeeded(1));
+      expect(sut.state.value, CommandState<int>.succeeded(1));
     });
 
     test('happy path minimal with argument', () async {
       final sut = Command<int, bool>(execute: fakeFunctionWithArgument);
 
-      expect(sut.state, CommandState<int>.idle());
+      expect(sut.state.value, CommandState<int>.idle());
       final future = sut.execute(true);
-      expect(sut.state, CommandState<int>.executing());
+      expect(sut.state.value, CommandState<int>.executing());
       await future;
-      expect(sut.state, CommandState<int>.succeeded(1));
+      expect(sut.state.value, CommandState<int>.succeeded(1));
     });
 
     test('failed case with argument', () async {
       final sut = Command<int, bool>(execute: fakeFunctionWithArgument);
 
-      expect(sut.state, CommandState<int>.idle());
+      expect(sut.state.value, CommandState<int>.idle());
       final future = sut.execute(false);
-      expect(sut.state, CommandState<int>.executing());
+      expect(sut.state.value, CommandState<int>.executing());
       await future;
-      expect(sut.state, CommandState<int>.failed('Error'));
+      expect(sut.state.value, CommandState<int>.failed('Error'));
     });
 
     test('should not execute if already executing', () async {
@@ -51,26 +51,26 @@ void main() {
         },
       );
 
-      expect(sut.state, CommandState<void>.idle());
+      expect(sut.state.value, CommandState<void>.idle());
 
       // Start first execution
       final first = sut.execute(null);
-      expect(sut.state, CommandState<void>.executing());
+      expect(sut.state.value, CommandState<void>.executing());
       expect(executed, 0);
 
       // Start second execution
       final second = sut.execute(null);
-      expect(sut.state, CommandState<void>.executing());
+      expect(sut.state.value, CommandState<void>.executing());
       expect(executed, 0);
 
       completer.complete();
       await first;
-      expect(sut.state, CommandState<void>.succeeded(null));
+      expect(sut.state.value, CommandState<void>.succeeded(null));
       expect(executed, 1);
 
       // The second execution should be ignored, so executed should not be incremented
       await second;
-      expect(sut.state, CommandState<void>.succeeded(null));
+      expect(sut.state.value, CommandState<void>.succeeded(null));
       expect(executed, 1);
     });
   });

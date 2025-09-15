@@ -32,7 +32,7 @@ class Command<T, A> {
   ValueNotifier<CommandState<T>> get state => _state;
 
   execute(A arg) async {
-    if (state is Executing<T>) return;
+    if (state.value is Executing<T>) return;
     _state.value = CommandState.executing();
 
     final result = await _execute(arg);
