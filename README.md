@@ -1,5 +1,15 @@
 # Flutter Dark Mode Clean Architecture
 
+
+
+
+
+https://github.com/user-attachments/assets/370b7061-cf78-47c4-b882-64ea2e364c9a
+
+
+
+
+
 A comprehensive Flutter application demonstrating modern architectural patterns and design principles through a dark mode theme persistence feature. This project serves as a practical example of how to structure Flutter applications using industry-standard patterns.
 
 ## 🏗️ **Architectural Patterns Showcased**
