@@ -92,7 +92,6 @@ lib/
 
 - **Unit Tests**: Repository and ViewModel testing with mocks
 - **Widget Tests**: UI component testing
-- **Integration Tests**: End-to-end feature testing
 - **Mock Dependencies**: Easy dependency replacement for testing
 
 ## 🚀 **Getting Started**
