@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:persistent_storage_key_value/core/utils/result.dart';
+import 'result.dart';
 
 part 'command.freezed.dart';
 
